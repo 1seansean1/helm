@@ -6,6 +6,8 @@ import { ProgressPage } from "./components/ProgressPage";
 import { LeadershipPage } from "./components/LeadershipPage";
 import { SettingsPage } from "./components/SettingsPage";
 import { HelpPage } from "./components/HelpPage";
+import { TutorialPage } from "./components/TutorialPage";
+import { WorkedExamplePage } from "./components/WorkedExamplePage";
 
 export function App() {
   return (
@@ -17,6 +19,8 @@ export function App() {
         <Route path="/leadership" element={<LeadershipPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/help" element={<HelpPage />} />
+        <Route path="/tutorial" element={<TutorialPage />} />
+        <Route path="/worked-example" element={<WorkedExamplePage />} />
       </Routes>
     </Shell>
   );

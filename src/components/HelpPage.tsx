@@ -1,10 +1,33 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Apple, Smartphone } from "lucide-react";
+import { ArrowRight, Apple, BookOpen, GraduationCap, Smartphone } from "lucide-react";
 
 export function HelpPage() {
   return (
     <div className="mx-auto max-w-2xl px-5 pt-8 pb-16 md:pt-12">
       <h1 className="font-display text-3xl font-semibold tracking-tight text-ink-50">Help &amp; FAQ</h1>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <Link
+          to="/tutorial"
+          className="card flex items-center gap-3 p-4 hover:border-gold-500/40"
+        >
+          <GraduationCap className="h-5 w-5 text-gold-300" />
+          <div>
+            <div className="font-semibold text-ink-50">Replay the tutorial</div>
+            <div className="text-xs text-ink-300">Eight-step guided tour, two minutes.</div>
+          </div>
+        </Link>
+        <Link
+          to="/worked-example"
+          className="card flex items-center gap-3 p-4 hover:border-gold-500/40"
+        >
+          <BookOpen className="h-5 w-5 text-gold-300" />
+          <div>
+            <div className="font-semibold text-ink-50">Worked example</div>
+            <div className="text-xs text-ink-300">Eleven capabilities on one banking problem.</div>
+          </div>
+        </Link>
+      </div>
 
       <Section title="What is Helm?">
         <p>

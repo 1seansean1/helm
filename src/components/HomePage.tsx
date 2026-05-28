@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
+  BookOpen,
   Boxes,
   Compass,
   FileSignature,
   GitBranch,
+  GraduationCap,
   Landmark,
   LayoutPanelLeft,
   ListChecks,
@@ -13,6 +15,7 @@ import {
   Sliders,
   Sparkles,
   Workflow,
+  X,
 } from "lucide-react";
 import { MODULES } from "../curriculum";
 import { useHelm } from "../state";
@@ -32,13 +35,39 @@ const MODULE_ICON: Record<string, React.ComponentType<{ className?: string; stro
 };
 
 export function HomePage() {
-  const { state } = useHelm();
+  const { state, setTutorialCompleted } = useHelm();
   const startedAny = Object.values(state.progress).some(
     (p) => p.status === "in_progress" || p.status === "completed",
   );
+  const showTutorialBanner = !state.tutorialCompleted;
 
   return (
     <div className="mx-auto max-w-5xl px-5 pt-8 pb-12 md:pt-14">
+      {showTutorialBanner && (
+        <div className="mb-6 flex items-start gap-3 rounded-2xl border border-gold-500/30 bg-gold-500/[0.07] p-4 md:items-center">
+          <GraduationCap className="mt-0.5 h-5 w-5 shrink-0 text-gold-300 md:mt-0" />
+          <div className="flex-1 text-sm text-ink-100">
+            <span className="font-semibold text-ink-50">New here?</span> Take the two-minute
+            guided tutorial — then jump into the worked example or start module 1.
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <Link
+              to="/tutorial"
+              className="rounded-full bg-gold-400 px-4 py-1.5 text-xs font-semibold text-ink-950 hover:bg-gold-300"
+            >
+              Take the tour
+            </Link>
+            <button
+              onClick={() => setTutorialCompleted(true)}
+              aria-label="Dismiss tour prompt"
+              className="rounded-full p-1.5 text-ink-300 hover:bg-ink-800"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Hero */}
       <section className="mb-10 md:mb-14">
         <div className="mb-3 flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-gold-300">
@@ -57,10 +86,16 @@ export function HomePage() {
         </p>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <Link
-            to={startedAny ? `/module/${MODULES[0].id}` : `/help`}
+            to={startedAny ? `/module/${MODULES[0].id}` : `/tutorial`}
             className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-400 px-6 py-3 text-sm font-semibold text-ink-950 shadow-glow transition hover:bg-gold-300"
           >
-            {startedAny ? "Continue" : "Start here"} <ArrowRight className="h-4 w-4" />
+            {startedAny ? "Continue" : "Take the 2-min tutorial"} <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link
+            to="/worked-example"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-500/40 bg-gold-500/[0.05] px-6 py-3 text-sm font-medium text-gold-200 transition hover:bg-gold-500/[0.12]"
+          >
+            <BookOpen className="h-4 w-4" /> See the worked example
           </Link>
           <Link
             to="/settings"

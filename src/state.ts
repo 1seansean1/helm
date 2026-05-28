@@ -33,6 +33,7 @@ export interface HelmState {
   defaultTemperature: number;
   defaultMaxTokens: number;
   progress: Record<string, ModuleProgress>;
+  tutorialCompleted: boolean;
 }
 
 const STORAGE_KEY = "helm.v1.state";
@@ -44,6 +45,7 @@ const FALLBACK: HelmState = {
   defaultTemperature: 0.5,
   defaultMaxTokens: 1024,
   progress: {},
+  tutorialCompleted: false,
 };
 
 function loadInitial(): HelmState {
@@ -69,6 +71,7 @@ interface Ctx {
   setModuleStatus: (moduleId: string, status: ProgressStatus) => void;
   setModuleNotes: (moduleId: string, notes: string) => void;
   recordExerciseRun: (moduleId: string, run: ExerciseRun) => void;
+  setTutorialCompleted: (b: boolean) => void;
   resetAllProgress: () => void;
   resetAll: () => void;
 }
@@ -152,6 +155,11 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const setTutorialCompleted = useCallback(
+    (b: boolean) => setState((s) => ({ ...s, tutorialCompleted: b })),
+    [],
+  );
+
   const resetAllProgress = useCallback(() => setState((s) => ({ ...s, progress: {} })), []);
   const resetAll = useCallback(() => setState(FALLBACK), []);
 
@@ -166,6 +174,7 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
       setModuleStatus,
       setModuleNotes,
       recordExerciseRun,
+      setTutorialCompleted,
       resetAllProgress,
       resetAll,
     }),
@@ -179,6 +188,7 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
       setModuleStatus,
       setModuleNotes,
       recordExerciseRun,
+      setTutorialCompleted,
       resetAllProgress,
       resetAll,
     ],
