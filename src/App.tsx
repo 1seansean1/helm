@@ -8,6 +8,7 @@ import { SettingsPage } from "./components/SettingsPage";
 import { HelpPage } from "./components/HelpPage";
 import { TutorialPage } from "./components/TutorialPage";
 import { WorkedExamplePage } from "./components/WorkedExamplePage";
+import { PocketPage } from "./components/PocketPage";
 
 export function App() {
   return (
@@ -21,6 +22,7 @@ export function App() {
         <Route path="/help" element={<HelpPage />} />
         <Route path="/tutorial" element={<TutorialPage />} />
         <Route path="/worked-example" element={<WorkedExamplePage />} />
+        <Route path="/pocket" element={<PocketPage />} />
       </Routes>
     </Shell>
   );

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
-  BookOpen,
   Compass,
   KeySquare,
   LineChart,
@@ -9,13 +8,14 @@ import {
   Sailboat,
   Settings as SettingsIcon,
   X,
+  Zap,
 } from "lucide-react";
 import { useHelm } from "../state";
 
 const NAV = [
   { to: "/", label: "Home", icon: Compass },
+  { to: "/pocket", label: "Pocket", icon: Zap },
   { to: "/progress", label: "Progress", icon: LineChart },
-  { to: "/leadership", label: "Brief", icon: BookOpen },
   { to: "/settings", label: "Settings", icon: SettingsIcon },
 ];
 

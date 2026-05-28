@@ -1,12 +1,22 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Apple, BookOpen, GraduationCap, Smartphone } from "lucide-react";
+import { ArrowRight, Apple, BookOpen, GraduationCap, Smartphone, Zap } from "lucide-react";
 
 export function HelpPage() {
   return (
     <div className="mx-auto max-w-2xl px-5 pt-8 pb-16 md:pt-12">
       <h1 className="font-display text-3xl font-semibold tracking-tight text-ink-50">Help &amp; FAQ</h1>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        <Link
+          to="/pocket"
+          className="card flex items-center gap-3 p-4 hover:border-gold-500/40"
+        >
+          <Zap className="h-5 w-5 text-gold-300" />
+          <div>
+            <div className="font-semibold text-ink-50">Pocket</div>
+            <div className="text-xs text-ink-300">Tap-to-copy artifacts for the interview.</div>
+          </div>
+        </Link>
         <Link
           to="/tutorial"
           className="card flex items-center gap-3 p-4 hover:border-gold-500/40"

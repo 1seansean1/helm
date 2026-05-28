@@ -16,6 +16,7 @@ import {
   Sparkles,
   Workflow,
   X,
+  Zap,
 } from "lucide-react";
 import { MODULES } from "../curriculum";
 import { useHelm } from "../state";
@@ -144,16 +145,31 @@ export function HomePage() {
         </ul>
       </section>
 
-      <section className="mt-14 grid gap-4 sm:grid-cols-2">
-        <Link to="/leadership" className="card-paper p-5 transition hover:shadow-lg">
-          <h3 className="font-display text-xl font-semibold tracking-tight">
-            Export your leadership brief
+      <section className="mt-14 grid gap-4 sm:grid-cols-3">
+        <Link to="/pocket" className="card-paper p-5 transition hover:shadow-lg sm:col-span-1">
+          <div className="mb-1.5 flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-gold-700">
+            <Zap className="h-3 w-3" /> Interview mode
+          </div>
+          <h3 className="font-display text-xl font-semibold tracking-tight text-ink-900">
+            Pocket — paste this
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-ink-700">
-            When you&apos;ve worked through the modules, consolidate everything you&apos;ve
-            written into a single one-pager you can hand a VP — or quote in an interview.
+            One-tap copy of every artifact: soundbites for the room, templates for the inbox,
+            frameworks for the whiteboard. The surface you pull up <em>during</em> the interview.
           </p>
           <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-gold-700">
+            Open Pocket <ArrowRight className="h-3.5 w-3.5" />
+          </span>
+        </Link>
+        <Link to="/leadership" className="card p-5 transition hover:border-gold-500/40">
+          <h3 className="font-display text-xl font-semibold tracking-tight text-ink-50">
+            Your leadership brief
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-ink-300">
+            Auto-built from your own notes and exercise responses. Refine with Claude, download
+            as Markdown.
+          </p>
+          <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-gold-300">
             Open brief <ArrowRight className="h-3.5 w-3.5" />
           </span>
         </Link>
@@ -163,11 +179,11 @@ export function HomePage() {
         >
           <div>
             <h3 className="font-display text-xl font-semibold tracking-tight text-ink-50">
-              Install Helm on your phone
+              Install on your phone
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-ink-300">
-              On iOS: Safari &rarr; Share &rarr; <em>Add to Home Screen</em>. On Android:
-              Chrome menu &rarr; <em>Install app</em>. Works offline after first load.
+              iOS Safari &rarr; Share &rarr; <em>Add to Home Screen</em>. Android Chrome &rarr;
+              menu &rarr; <em>Install app</em>. Offline after first load.
             </p>
           </div>
           <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-gold-300">

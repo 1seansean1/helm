@@ -260,8 +260,22 @@ export function TutorialPage() {
       title: "You're ready.",
       body: (
         <>
-          <p>Two doors to walk through.</p>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <p>Three doors to walk through.</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            <Link
+              to="/pocket"
+              className="card flex flex-col gap-2 p-4 hover:border-gold-500/40"
+            >
+              <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-gold-300">
+                <FileText className="h-3.5 w-3.5" /> Pocket
+              </div>
+              <div className="font-display text-base font-semibold text-ink-50">
+                Tap-to-copy artifacts
+              </div>
+              <p className="text-sm text-ink-300">
+                Paste this <em>during</em> the interview — soundbites, templates, frameworks.
+              </p>
+            </Link>
             <Link
               to="/worked-example"
               className="card flex flex-col gap-2 p-4 hover:border-gold-500/40"
@@ -269,12 +283,11 @@ export function TutorialPage() {
               <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-gold-300">
                 <BookOpen className="h-3.5 w-3.5" /> Worked example
               </div>
-              <div className="font-display text-lg font-semibold text-ink-50">
-                See all eleven applied to one problem
+              <div className="font-display text-base font-semibold text-ink-50">
+                Eleven on one problem
               </div>
               <p className="text-sm text-ink-300">
-                Acme Bank disputes: $2.1M/month to a one-page strategy. The story you could
-                rehearse for an interview.
+                Acme disputes: $2.1M/month to a one-page strategy.
               </p>
             </Link>
             <Link
@@ -284,7 +297,7 @@ export function TutorialPage() {
               <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-gold-300">
                 <Compass className="h-3.5 w-3.5" /> Start the curriculum
               </div>
-              <div className="font-display text-lg font-semibold text-ink-50">
+              <div className="font-display text-base font-semibold text-ink-50">
                 Module 1 — Model selection
               </div>
               <p className="text-sm text-ink-300">
@@ -298,8 +311,8 @@ export function TutorialPage() {
           </p>
         </>
       ),
-      primary: { label: "Finish & go to module 1", to: "/module/model-selection", action: "finish" },
-      secondary: { label: "See worked example", to: "/worked-example", action: "finish" },
+      primary: { label: "Open Pocket", to: "/pocket", action: "finish" },
+      secondary: { label: "Start module 1", to: "/module/model-selection", action: "finish" },
     },
   ];
 
