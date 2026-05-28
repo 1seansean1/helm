@@ -5,6 +5,7 @@ import {
   KeySquare,
   LineChart,
   Menu,
+  MessageSquare,
   Sailboat,
   Settings as SettingsIcon,
   X,
@@ -15,6 +16,7 @@ import { useHelm } from "../state";
 const NAV = [
   { to: "/", label: "Home", icon: Compass },
   { to: "/pocket", label: "Pocket", icon: Zap },
+  { to: "/sandbox", label: "Sandbox", icon: MessageSquare },
   { to: "/progress", label: "Progress", icon: LineChart },
   { to: "/settings", label: "Settings", icon: SettingsIcon },
 ];

@@ -9,6 +9,7 @@ import { HelpPage } from "./components/HelpPage";
 import { TutorialPage } from "./components/TutorialPage";
 import { WorkedExamplePage } from "./components/WorkedExamplePage";
 import { PocketPage } from "./components/PocketPage";
+import { SandboxPage } from "./components/SandboxPage";
 
 export function App() {
   return (
@@ -23,6 +24,7 @@ export function App() {
         <Route path="/tutorial" element={<TutorialPage />} />
         <Route path="/worked-example" element={<WorkedExamplePage />} />
         <Route path="/pocket" element={<PocketPage />} />
+        <Route path="/sandbox" element={<SandboxPage />} />
       </Routes>
     </Shell>
   );

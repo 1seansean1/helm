@@ -4,6 +4,54 @@ import { useHelm } from "../state";
 import { MODELS, type ModelId } from "../lib/models";
 import { callClaude, AnthropicError } from "../lib/anthropic";
 
+function OpenRouterKeyForm() {
+  const { state, setOpenRouterKey, forgetOpenRouterKey } = useHelm();
+  const [draft, setDraft] = useState(state.openRouterKey);
+  const [reveal, setReveal] = useState(false);
+  return (
+    <>
+      <div className="flex gap-2">
+        <div className="relative flex-1">
+          <input
+            type={reveal ? "text" : "password"}
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            placeholder="sk-or-..."
+            className="w-full rounded-md border border-ink-700 bg-ink-900 px-3 py-2 font-mono text-sm text-ink-100 focus:border-gold-400"
+            autoComplete="off"
+            spellCheck={false}
+          />
+          <button
+            type="button"
+            onClick={() => setReveal((v) => !v)}
+            className="absolute inset-y-0 right-2 my-1 rounded-md p-1 text-ink-300 hover:bg-ink-800"
+            aria-label={reveal ? "Hide key" : "Show key"}
+          >
+            {reveal ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+          </button>
+        </div>
+        <button
+          onClick={() => setOpenRouterKey(draft)}
+          className="rounded-md bg-gold-400 px-4 py-2 text-sm font-semibold text-ink-950 hover:bg-gold-300"
+        >
+          Save
+        </button>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <button
+          onClick={() => {
+            forgetOpenRouterKey();
+            setDraft("");
+          }}
+          className="inline-flex items-center gap-2 rounded-full border border-rust-500/40 px-3 py-1.5 text-xs text-rust-400 hover:bg-rust-500/10"
+        >
+          <Trash2 className="h-3.5 w-3.5" /> Forget key
+        </button>
+      </div>
+    </>
+  );
+}
+
 export function SettingsPage() {
   const {
     state,
@@ -129,6 +177,26 @@ export function SettingsPage() {
             {testResult}
           </p>
         )}
+      </section>
+
+      <section className="card mt-6 p-5">
+        <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-ink-50">
+          <KeySquare className="h-4 w-4 text-gold-300" />
+          OpenRouter API key (optional)
+        </div>
+        <p className="mb-3 text-xs text-ink-300">
+          One key unlocks ~100 models across providers (GPT-5, Gemini, Llama, Mistral, DeepSeek, Grok, Claude) inside <strong>Sandbox</strong>. Get one at{" "}
+          <a
+            href="https://openrouter.ai/keys"
+            target="_blank"
+            rel="noreferrer"
+            className="text-gold-300 underline"
+          >
+            openrouter.ai/keys
+          </a>
+          . Starts with <code>sk-or-</code>.
+        </p>
+        <OpenRouterKeyForm />
       </section>
 
       <section className="card mt-6 p-5">

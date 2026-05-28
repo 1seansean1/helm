@@ -10,6 +10,7 @@ import {
   Landmark,
   LayoutPanelLeft,
   ListChecks,
+  MessageSquare,
   ScrollText,
   Settings2,
   Sliders,
@@ -85,7 +86,7 @@ export function HomePage() {
           <em> here is our AI product strategy, here are the won&apos;ts, here is who we hire,
           here is what we buy</em>. Bring your own Anthropic key; everything runs in your browser.
         </p>
-        <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <Link
             to={startedAny ? `/module/${MODULES[0].id}` : `/tutorial`}
             className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-400 px-6 py-3 text-sm font-semibold text-ink-950 shadow-glow transition hover:bg-gold-300"
@@ -93,16 +94,16 @@ export function HomePage() {
             {startedAny ? "Continue" : "Take the 2-min tutorial"} <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
-            to="/worked-example"
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-500/40 bg-gold-500/[0.05] px-6 py-3 text-sm font-medium text-gold-200 transition hover:bg-gold-500/[0.12]"
+            to="/sandbox"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-500/40 bg-gold-500/[0.07] px-6 py-3 text-sm font-medium text-gold-200 transition hover:bg-gold-500/[0.18]"
           >
-            <BookOpen className="h-4 w-4" /> See the worked example
+            <MessageSquare className="h-4 w-4" /> Open Sandbox
           </Link>
           <Link
-            to="/settings"
+            to="/worked-example"
             className="inline-flex items-center justify-center gap-2 rounded-full border border-ink-600 px-6 py-3 text-sm font-medium text-ink-100 transition hover:border-gold-400 hover:text-gold-300"
           >
-            Configure your API key
+            <BookOpen className="h-4 w-4" /> Worked example
           </Link>
         </div>
       </section>

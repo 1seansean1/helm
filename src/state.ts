@@ -29,11 +29,19 @@ export interface ModuleProgress {
 export interface HelmState {
   version: 1;
   apiKey: string;
+  openRouterKey: string;
   defaultModel: ModelId;
   defaultTemperature: number;
   defaultMaxTokens: number;
   progress: Record<string, ModuleProgress>;
   tutorialCompleted: boolean;
+  sandboxDefaults: {
+    providerId: "anthropic" | "openrouter";
+    anthropicModel: string;
+    openRouterModel: string;
+    temperature: number;
+    max_tokens: number;
+  };
 }
 
 const STORAGE_KEY = "helm.v1.state";
@@ -41,11 +49,19 @@ const STORAGE_KEY = "helm.v1.state";
 const FALLBACK: HelmState = {
   version: 1,
   apiKey: "",
+  openRouterKey: "",
   defaultModel: DEFAULT_MODEL,
   defaultTemperature: 0.5,
   defaultMaxTokens: 1024,
   progress: {},
   tutorialCompleted: false,
+  sandboxDefaults: {
+    providerId: "anthropic",
+    anthropicModel: "claude-sonnet-4-6",
+    openRouterModel: "openai/gpt-5-mini",
+    temperature: 0.5,
+    max_tokens: 1024,
+  },
 };
 
 function loadInitial(): HelmState {
@@ -65,9 +81,12 @@ interface Ctx {
   state: HelmState;
   setApiKey: (k: string) => void;
   forgetApiKey: () => void;
+  setOpenRouterKey: (k: string) => void;
+  forgetOpenRouterKey: () => void;
   setDefaultModel: (m: ModelId) => void;
   setDefaultTemperature: (t: number) => void;
   setDefaultMaxTokens: (m: number) => void;
+  setSandboxDefaults: (patch: Partial<HelmState["sandboxDefaults"]>) => void;
   setModuleStatus: (moduleId: string, status: ProgressStatus) => void;
   setModuleNotes: (moduleId: string, notes: string) => void;
   recordExerciseRun: (moduleId: string, run: ExerciseRun) => void;
@@ -91,6 +110,19 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
 
   const setApiKey = useCallback((k: string) => setState((s) => ({ ...s, apiKey: k.trim() })), []);
   const forgetApiKey = useCallback(() => setState((s) => ({ ...s, apiKey: "" })), []);
+  const setOpenRouterKey = useCallback(
+    (k: string) => setState((s) => ({ ...s, openRouterKey: k.trim() })),
+    [],
+  );
+  const forgetOpenRouterKey = useCallback(
+    () => setState((s) => ({ ...s, openRouterKey: "" })),
+    [],
+  );
+  const setSandboxDefaults = useCallback(
+    (patch: Partial<HelmState["sandboxDefaults"]>) =>
+      setState((s) => ({ ...s, sandboxDefaults: { ...s.sandboxDefaults, ...patch } })),
+    [],
+  );
   const setDefaultModel = useCallback((m: ModelId) => setState((s) => ({ ...s, defaultModel: m })), []);
   const setDefaultTemperature = useCallback(
     (t: number) => setState((s) => ({ ...s, defaultTemperature: clamp(t, 0, 1) })),
@@ -168,9 +200,12 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
       state,
       setApiKey,
       forgetApiKey,
+      setOpenRouterKey,
+      forgetOpenRouterKey,
       setDefaultModel,
       setDefaultTemperature,
       setDefaultMaxTokens,
+      setSandboxDefaults,
       setModuleStatus,
       setModuleNotes,
       recordExerciseRun,
@@ -182,9 +217,12 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
       state,
       setApiKey,
       forgetApiKey,
+      setOpenRouterKey,
+      forgetOpenRouterKey,
       setDefaultModel,
       setDefaultTemperature,
       setDefaultMaxTokens,
+      setSandboxDefaults,
       setModuleStatus,
       setModuleNotes,
       recordExerciseRun,

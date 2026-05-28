@@ -4,6 +4,7 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // Base path: served from root on custom domain / S3; from /helm/ on GitHub Pages.
 // Set VITE_BASE at build time, default "/".
+declare const process: { env: Record<string, string | undefined> };
 const base = process.env.VITE_BASE ?? "/";
 
 export default defineConfig({

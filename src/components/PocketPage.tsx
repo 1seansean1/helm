@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Check,
   Copy,
   FileSignature,
   FileText,
+  MessageSquare,
   Quote,
   Search,
   Share2,
@@ -31,6 +32,7 @@ export function PocketPage() {
   const [cat, setCat] = useState<"all" | PocketCategory>("all");
   const [query, setQuery] = useState("");
   const [toast, setToast] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!toast) return;
@@ -157,7 +159,13 @@ export function PocketPage() {
       )}
       <ul className="grid gap-3 sm:grid-cols-2">
         {cards.map((c) => (
-          <PocketCardView key={c.id} card={c} onCopy={copyArtifact} onShare={shareArtifact} />
+          <PocketCardView
+            key={c.id}
+            card={c}
+            onCopy={copyArtifact}
+            onShare={shareArtifact}
+            onOpenInSandbox={() => navigate(`/sandbox?prefill=${encodeURIComponent(c.id)}`)}
+          />
         ))}
       </ul>
 
@@ -182,10 +190,12 @@ function PocketCardView({
   card,
   onCopy,
   onShare,
+  onOpenInSandbox,
 }: {
   card: PocketCard;
   onCopy: (c: PocketCard) => void;
   onShare: (c: PocketCard) => void;
+  onOpenInSandbox: () => void;
 }) {
   const [expanded, setExpanded] = useState(false);
   const Icon = ICON[card.category];
@@ -226,7 +236,7 @@ function PocketCardView({
         </button>
       </div>
 
-      <div className="mt-auto flex items-center justify-between gap-2 border-t border-ink-700/60 bg-ink-900/40 px-4 py-2.5">
+      <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-ink-700/60 bg-ink-900/40 px-4 py-2.5">
         <button
           onClick={() => onCopy(card)}
           className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-gold-400 px-3 py-1.5 text-xs font-semibold text-ink-950 hover:bg-gold-300"
@@ -239,6 +249,13 @@ function PocketCardView({
           aria-label="Share"
         >
           <Share2 className="h-3.5 w-3.5" /> Send
+        </button>
+        <button
+          onClick={onOpenInSandbox}
+          className="inline-flex items-center gap-1.5 rounded-full border border-gold-500/40 bg-gold-500/[0.08] px-3 py-1.5 text-xs text-gold-200 hover:bg-gold-500/[0.18]"
+          title="Open Sandbox with this as the system prompt"
+        >
+          <MessageSquare className="h-3.5 w-3.5" /> Run
         </button>
         {card.moduleId && (
           <Link

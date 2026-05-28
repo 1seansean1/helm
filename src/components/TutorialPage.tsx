@@ -24,7 +24,7 @@ interface Step {
   title: string;
   body: React.ReactNode;
   primary: { label: string; to?: string; action?: "next" | "finish" };
-  secondary?: { label: string; to?: string; action?: "next" };
+  secondary?: { label: string; to?: string; action?: "next" | "finish" };
 }
 
 export function TutorialPage() {
