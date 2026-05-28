@@ -1,0 +1,35 @@
+{
+  "artifact": "requirement-set.v1",
+  "program": "Helm",
+  "stakeholders": {
+    "primary_user": "Senior product-designer candidate transitioning from a bank software department into a senior product-design role; intelligent, articulate, action-biased; lacks formal AI-product vocabulary and exposure",
+    "owner": "Operator (gifts the app to the user); retains source",
+    "deployer": "Operator deploys to personal GitHub + AWS commercial"
+  },
+  "verification_legend": {
+    "T": "Test (executed code with assertion)",
+    "I": "Inspection (visual review of artifact)",
+    "D": "Demonstration (run end-to-end and observe)",
+    "A": "Analysis (reasoning over evidence)"
+  },
+  "requirements": [
+    { "id": "R-01", "priority": "must", "statement": "The system shall present a curriculum of eleven modules covering: model selection, sampling, harness development, context-file authoring, skills, chaining skills into workflows, automating workflows into routines, consolidating results, extracting results, summarizing results, and leadership guidance to a product team.", "acceptance": "Navigation lists exactly eleven modules with the named titles.", "verification_method": "T" },
+    { "id": "R-02", "priority": "must", "statement": "Every curriculum module shall anchor concepts in a banking or fintech product scenario.", "acceptance": "Each module page renders at least one banking-scenario block (data fixture field `banking_scenario` non-empty).", "verification_method": "T" },
+    { "id": "R-03", "priority": "must", "statement": "Every module shall include interview-ready vocabulary the user can quote verbatim.", "acceptance": "Each module renders a `vocabulary` list with >= 4 term/definition pairs.", "verification_method": "T" },
+    { "id": "R-04", "priority": "must", "statement": "Every module shall include at least one interactive exercise that the user can complete in-app.", "acceptance": "Each module's `exercises` array has length >= 1; exercise renders an input control and a Submit affordance.", "verification_method": "T" },
+    { "id": "R-05", "priority": "must", "statement": "When the user has provided an Anthropic API key, exercises shall be solvable via a live Claude call directly from the browser to api.anthropic.com.", "acceptance": "With a valid key configured, clicking Run on an exercise issues a POST to https://api.anthropic.com/v1/messages with header `anthropic-dangerous-direct-browser-access: true` and renders the response.", "verification_method": "D" },
+    { "id": "R-06", "priority": "must", "statement": "The system shall never transmit the user's API key to any host other than api.anthropic.com.", "acceptance": "Key is read only by the Anthropic client module; no analytics, telemetry, or third-party requests carry the key.", "verification_method": "I" },
+    { "id": "R-07", "priority": "must", "statement": "The user's API key shall be stored only in the browser (localStorage) and shall never leave the device except as an Authorization header to api.anthropic.com.", "acceptance": "Source grep shows key referenced only in `lib/anthropic.ts` request builder; no server endpoint exists.", "verification_method": "I" },
+    { "id": "R-08", "priority": "must", "statement": "The user shall be able to delete their API key from the app in one click.", "acceptance": "Settings exposes a Forget Key action that clears the key and reloads the settings panel state.", "verification_method": "D" },
+    { "id": "R-09", "priority": "must", "statement": "The system shall track per-module progress (not-started, in-progress, completed) and persist it across reloads.", "acceptance": "Progress writes to localStorage and is restored on next mount; resetting clears all module state.", "verification_method": "T" },
+    { "id": "R-10", "priority": "must", "statement": "The system shall be installable as a Progressive Web App on Android and iOS.", "acceptance": "manifest.webmanifest is served with name, icons (192/512/maskable), display=standalone, start_url; service worker is registered with autoUpdate.", "verification_method": "D" },
+    { "id": "R-11", "priority": "must", "statement": "The system shall function offline for all non-exercise content after first load.", "acceptance": "After first load, navigating modules with the network disabled renders content from cache; only live-Claude exercises require network.", "verification_method": "D" },
+    { "id": "R-12", "priority": "must", "statement": "The user shall be able to export a personalized 'leadership guidance brief' that consolidates their work into one document suitable for a product-team readout.", "acceptance": "Leadership view renders a structured brief and offers a download as Markdown (.md).", "verification_method": "D" },
+    { "id": "R-13", "priority": "should", "statement": "The system shall offer a fully offline practice mode using canned example outputs so the user can complete every module without an API key.", "acceptance": "Each exercise has a `simulated` fallback that runs when no key is present.", "verification_method": "T" },
+    { "id": "R-14", "priority": "must", "statement": "The UI shall avoid emoji iconography and use SVG icons (lucide) throughout.", "acceptance": "Source grep shows no emoji in components; all icon usages are lucide-react.", "verification_method": "I" },
+    { "id": "R-15", "priority": "must", "statement": "The UI shall present a polished, banking-confident aesthetic (deep navy, paper warm-white, gold accent; serif display + sans body) and shall not read as terminal/monospace.", "acceptance": "Visual review against reference (Stripe/Mercury/Brex/Linear), no terminal aesthetic, mobile-first responsive.", "verification_method": "I" },
+    { "id": "R-16", "priority": "must", "statement": "The user shall be able to choose between Claude models (Opus 4.7, Sonnet 4.6, Haiku 4.5) and adjust sampling parameters (temperature, max_tokens) for any live exercise.", "acceptance": "Settings exposes model select with the three model IDs and temperature/max_tokens controls; chosen values are sent in the request body.", "verification_method": "D" },
+    { "id": "R-17", "priority": "must", "statement": "The system shall ship with a self-contained README explaining the curriculum, the BYO-key model, install steps, and an FAQ aimed at the end user.", "acceptance": "README.md present in repo root with the stated sections.", "verification_method": "I" },
+    { "id": "R-18", "priority": "must", "statement": "The system shall be deployed to a public URL on GitHub Pages under the operator's personal account and to a public URL on AWS commercial S3 + (optional) CloudFront, with both URLs documented for the user.", "acceptance": "Both URLs return 200 and serve the built PWA; URLs are listed in README and on a deploy receipt.", "verification_method": "D" }
+  ]
+}

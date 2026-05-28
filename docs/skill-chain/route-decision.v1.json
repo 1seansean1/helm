@@ -1,0 +1,29 @@
+{
+  "artifact": "route-decision.v1",
+  "goal": "Helm — installable PWA coaching companion that teaches a fintech-bound product designer to lead with consumer-facing frontier-model AI; BYO Claude API key; fully owned by operator; deployed to GitHub Pages + AWS commercial.",
+  "entry_phase": "9-requirements-engineer",
+  "rationale": "Greenfield build with caller-specified curriculum scope (11 named topics) and named end-user. Phases 1-2 (lit-review, research-prompt), 7 (partition-extractor) and 8 (capability-tree) exist to discover requirements in a novel domain. Here the domain is well-bounded consumer AI product education; running discovery phases would inflate ceremony without changing the requirement set. Per skill-chain rule: a phase may be skipped only if its output is unnecessary for the goal. We record the skip and the rationale; we do not silently elide.",
+  "drive_plan": [
+    { "phase": 1,  "skill": "lit-review",                  "status": "skipped", "reason": "domain bounded by caller" },
+    { "phase": 2,  "skill": "research-prompt",             "status": "skipped", "reason": "no research delegation needed" },
+    { "phase": 7,  "skill": "partition-extractor",         "status": "skipped", "reason": "no Omega-space to infer; scope is pre-specified" },
+    { "phase": 8,  "skill": "capability-tree",             "status": "skipped", "reason": "11 capabilities are the 11 curriculum modules; tree is flat" },
+    { "phase": 9,  "skill": "requirements-engineer",       "status": "todo",    "artifact": "requirement-set.v1" },
+    { "phase": 10, "skill": "solution-architect",          "status": "todo",    "artifact": "architecture.v1" },
+    { "phase": 10, "skill": "test-designer",               "status": "todo",    "artifact": "test-set.v1" },
+    { "phase": 11, "skill": "release-planner",             "status": "todo",    "artifact": "plan.v1" },
+    { "phase": 14, "skill": "sprint-runner",               "status": "todo",    "artifact": "BUILD" },
+    { "phase": 15, "skill": "test-evaluator",              "status": "todo",    "artifact": "test-eval-report.v1" },
+    { "phase": 15, "skill": "sprint-retrospective",        "status": "todo",    "artifact": "retrospective.v1" },
+    { "phase": 16, "skill": "codebase-review",             "status": "todo",    "artifact": "codebase-review-report.v1" }
+  ],
+  "destructive_action_gate": {
+    "covering_token": "user-issued: 'aws commercial go go go' + 'apply to my personal github'",
+    "scope": [
+      "create public/private repo under github.com/1seansean1",
+      "deploy static assets to GitHub Pages",
+      "deploy static assets to AWS commercial account 327416545926 via S3 + (optional) CloudFront"
+    ],
+    "blast_radius": "self-owned personal infra; no shared production system touched"
+  }
+}

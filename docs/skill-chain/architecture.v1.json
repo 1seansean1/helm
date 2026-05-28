@@ -1,0 +1,89 @@
+{
+  "artifact": "architecture.v1",
+  "program": "Helm",
+  "summary": "Single-page React 19 + TypeScript app, bundled by Vite 6, styled with Tailwind 3, made installable by vite-plugin-pwa (Workbox autoUpdate). Curriculum is a typed data fixture compiled into the bundle. Live AI calls go directly from the browser to api.anthropic.com using the BYO API key in localStorage and the documented direct-browser-access header. No backend exists; this is the architectural guarantee that satisfies R-06 and R-07.",
+  "decisions": [
+    {
+      "id": "AD-01",
+      "topic": "Frontend framework",
+      "decision": "React 19 + TypeScript + Vite 6",
+      "rationale": "Mature SPA tooling; vite-plugin-pwa is first-class; reduces deploy complexity to a static dist/ directory which serves identically on GitHub Pages and S3."
+    },
+    {
+      "id": "AD-02",
+      "topic": "AI integration model",
+      "decision": "BYO Anthropic API key, stored only in localStorage; called directly from browser with `anthropic-dangerous-direct-browser-access: true`",
+      "rationale": "Eliminates the server, the shared-secret risk, and any cost the operator absorbs. The 'dangerous' header is appropriate here because the trust boundary is the user's own device and the user holds their own key.",
+      "tradeoffs": [
+        "User must obtain and paste a key (mitigated by simulated offline mode, R-13).",
+        "Key sits in plaintext localStorage on her device (acceptable: same trust level as a browser-stored password; documented in README; one-click Forget Key)."
+      ]
+    },
+    {
+      "id": "AD-03",
+      "topic": "Persistence",
+      "decision": "localStorage with a single versioned key `helm.v1.state`",
+      "rationale": "Curriculum progress, key, model preferences fit in <10 KB; no need for IndexedDB."
+    },
+    {
+      "id": "AD-04",
+      "topic": "Styling",
+      "decision": "Tailwind 3 + custom token palette (ink/paper/gold/moss/rust) + Inter + Fraunces + JetBrains Mono",
+      "rationale": "Banking-confident aesthetic per R-15; serif display gives editorial gravitas (Mercury/Brex reference); deep navy + warm paper + gold accent reads as fintech, not terminal."
+    },
+    {
+      "id": "AD-05",
+      "topic": "Icons",
+      "decision": "lucide-react only; no emoji anywhere",
+      "rationale": "R-14 plus operator preference (feedback_no_emojis)."
+    },
+    {
+      "id": "AD-06",
+      "topic": "Routing",
+      "decision": "react-router-dom v7 with HashRouter",
+      "rationale": "HashRouter sidesteps GitHub Pages subpath-rewrite pain and works identically on S3 without CloudFront rewrite rules; trades clean URLs for deploy simplicity."
+    },
+    {
+      "id": "AD-07",
+      "topic": "PWA",
+      "decision": "vite-plugin-pwa with registerType=autoUpdate and Workbox precaching of all built assets",
+      "rationale": "Satisfies R-10 (installable) and R-11 (offline) without a custom service worker."
+    },
+    {
+      "id": "AD-08",
+      "topic": "Deploy targets",
+      "decision": "Two parallel deploys: GitHub Pages (gh-pages branch via gh-actions) + AWS S3 commercial bucket with public-read static-site hosting",
+      "rationale": "GitHub Pages gives a friendly URL under github.io; S3 gives a partition-independent canonical URL operator controls. CloudFront is optional (added only if a custom domain is layered later)."
+    },
+    {
+      "id": "AD-09",
+      "topic": "Models exposed",
+      "decision": "Claude Opus 4.7 (claude-opus-4-7), Sonnet 4.6 (claude-sonnet-4-6), Haiku 4.5 (claude-haiku-4-5-20251001); default = Haiku",
+      "rationale": "Per global CLAUDE.md: latest family + sensible default. Haiku keeps exercise latency low and cost minimal for novice exploration."
+    },
+    {
+      "id": "AD-10",
+      "topic": "Sampling controls exposed",
+      "decision": "temperature (0.0 - 1.0, step 0.1), max_tokens (256, 512, 1024, 2048, 4096)",
+      "rationale": "Two knobs cover the sampling-curriculum teaching surface without overwhelming a novice; both are sent on every request."
+    }
+  ],
+  "interfaces": {
+    "browser_to_anthropic": {
+      "url": "https://api.anthropic.com/v1/messages",
+      "method": "POST",
+      "headers": [
+        "x-api-key: <user key>",
+        "anthropic-version: 2023-06-01",
+        "anthropic-dangerous-direct-browser-access: true",
+        "content-type: application/json"
+      ],
+      "body_fields": ["model", "max_tokens", "temperature", "system", "messages"]
+    }
+  },
+  "non_functional": {
+    "performance": "First contentful paint < 1.5s on cold cache over 4G; offline navigation < 200ms.",
+    "size_budget": "JS+CSS bundle < 500 KB gzipped.",
+    "security": "No backend, no analytics, no telemetry. Key is read-once per request from localStorage. No third-party scripts beyond Google Fonts CSS (CSS only, no JS)."
+  }
+}

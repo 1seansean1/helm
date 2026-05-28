@@ -1,0 +1,50 @@
+{
+  "artifact": "plan.v1",
+  "program": "Helm",
+  "releases": [
+    {
+      "id": "R1",
+      "name": "Walking demo",
+      "scope": "All 11 modules navigable, full BYO-key live integration, install-as-PWA verified, deployed to both GitHub Pages and AWS S3",
+      "sprints": [
+        {
+          "id": "S1",
+          "name": "Foundation + design system",
+          "tasks": [
+            "T-01: Project scaffold (Vite, React, TS, Tailwind, PWA plugin) — DONE",
+            "T-02: Design tokens + global stylesheet",
+            "T-03: App shell (header, mobile bottom nav, content frame, route boundary)",
+            "T-04: State module (versioned localStorage, progress, key, model prefs)",
+            "T-05: Anthropic client (direct-browser call, error mapping)",
+            "T-06: SVG icon set + PWA icons (192/512/maskable) + favicon"
+          ]
+        },
+        {
+          "id": "S2",
+          "name": "Curriculum + exercise engine",
+          "tasks": [
+            "T-07: Curriculum data fixture (11 modules, banking scenarios, vocabulary, exercises, simulated fallbacks, leadership talking points)",
+            "T-08: Module page (overview, vocabulary, exercise runner, self-check, mark-complete)",
+            "T-09: Exercise runner (model select, temperature/max_tokens, system+user editor, live run, simulated run)",
+            "T-10: Settings (key management, model defaults, reset)",
+            "T-11: Progress view (per-module status, overall completion)",
+            "T-12: Leadership export (consolidate notes + responses into Markdown brief, download)"
+          ]
+        },
+        {
+          "id": "S3",
+          "name": "Verification + ship",
+          "tasks": [
+            "T-13: Vitest unit tests (curriculum invariants, state, anthropic-client URL/headers)",
+            "T-14: Build + preview locally; manifest + SW verified",
+            "T-15: README + FAQ",
+            "T-16: Push to github.com/1seansean1/helm + enable Pages",
+            "T-17: Deploy to AWS commercial S3 static-site bucket",
+            "T-18: Smoke test both URLs; record deploy receipt"
+          ]
+        }
+      ]
+    }
+  ],
+  "critical_path": ["T-02", "T-03", "T-04", "T-05", "T-07", "T-08", "T-09", "T-13", "T-14", "T-16", "T-17", "T-18"]
+}
