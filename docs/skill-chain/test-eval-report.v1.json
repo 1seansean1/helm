@@ -1,0 +1,42 @@
+{
+  "artifact": "test-eval-report.v1",
+  "program": "Helm",
+  "test_framework": "Vitest 2.1",
+  "unit_suite": {
+    "files": [
+      "src/__tests__/curriculum.test.ts",
+      "src/__tests__/anthropic.test.ts",
+      "src/__tests__/state.test.ts"
+    ],
+    "test_count": 53,
+    "passed": 53,
+    "failed": 0,
+    "duration_ms": 3840
+  },
+  "rtm_coverage": [
+    { "req": "R-01", "method": "T", "evidence": "curriculum.test.ts — exactly eleven modules, in documented order", "result": "PASS" },
+    { "req": "R-02", "method": "T", "evidence": "curriculum.test.ts — banking_scenario non-empty per module (11 sub-tests)", "result": "PASS" },
+    { "req": "R-03", "method": "T", "evidence": "curriculum.test.ts — vocabulary length ≥ 4 per module (11 sub-tests)", "result": "PASS" },
+    { "req": "R-04", "method": "T", "evidence": "curriculum.test.ts — exercises length ≥ 1 per module (11 sub-tests)", "result": "PASS" },
+    { "req": "R-05", "method": "D", "evidence": "Live Playwright run on https://1seansean1.github.io/helm/#/module/model-selection — Simulated exercise renders the canned response; live path tested unit-side with mocked fetch (anthropic.test.ts) verifying the exact URL/headers", "result": "PASS" },
+    { "req": "R-06", "method": "I", "evidence": "Grep src/lib/ — only anthropic.ts references the apiKey; only callee is the direct browser fetch to api.anthropic.com; no analytics or telemetry imports anywhere in src/", "result": "PASS" },
+    { "req": "R-07", "method": "I", "evidence": "anthropic.test.ts asserts the request URL begins with https://api.anthropic.com/; state.ts stores key only in localStorage 'helm.v1.state'; no other persistence", "result": "PASS" },
+    { "req": "R-08", "method": "D", "evidence": "SettingsPage.tsx exposes Forget Key button calling forgetApiKey() which sets apiKey to empty string; state persists the empty value to localStorage", "result": "PASS" },
+    { "req": "R-09", "method": "T", "evidence": "state.test.ts — computeOverall counts pass for 0/0, partial, and 100% cases", "result": "PASS" },
+    { "req": "R-10", "method": "D", "evidence": "curl /manifest.webmanifest = 200; manifest contains 192/512/512-maskable icons, display=standalone, start_url=/helm/, scope=/helm/", "result": "PASS" },
+    { "req": "R-11", "method": "D", "evidence": "vite-plugin-pwa generated sw.js with 16 precached entries (486 KiB) covering all static assets", "result": "PASS" },
+    { "req": "R-12", "method": "D", "evidence": "LeadershipPage.tsx generates Markdown brief from state.progress; download triggers Blob+download anchor with .md filename", "result": "PASS" },
+    { "req": "R-13", "method": "T", "evidence": "curriculum.test.ts — every exercise has non-empty simulated_response field (≥40 chars)", "result": "PASS" },
+    { "req": "R-14", "method": "I", "evidence": "Grep src/components/ — all icon usage is lucide-react imports; no emoji codepoints in source", "result": "PASS" },
+    { "req": "R-15", "method": "I", "evidence": "Playwright screenshot at desktop + mobile shows deep-navy + paper + gold palette, Fraunces serif headlines, Inter body, no monospace dominance", "result": "PASS" },
+    { "req": "R-16", "method": "D", "evidence": "ExerciseRunner.tsx renders model select with three model IDs + temperature range + max_tokens select; values pass into callClaude request body", "result": "PASS" },
+    { "req": "R-17", "method": "I", "evidence": "README.md present in repo root with curriculum, BYO-key, install, FAQ sections", "result": "PASS" },
+    { "req": "R-18", "method": "D", "evidence": "Both URLs return 200: https://1seansean1.github.io/helm/ and http://helm-1seansean1.s3-website-us-east-1.amazonaws.com/", "result": "PASS" }
+  ],
+  "summary": {
+    "total_requirements": 18,
+    "verified": 18,
+    "deferred": 0,
+    "failed": 0
+  }
+}

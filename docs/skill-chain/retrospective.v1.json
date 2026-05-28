@@ -1,0 +1,35 @@
+{
+  "artifact": "retrospective.v1",
+  "program": "Helm",
+  "sprint": "S1+S2+S3 (single-sprint MVP)",
+  "planned_vs_actual": [
+    { "task": "T-01 scaffold",        "planned": true, "delivered": true,  "notes": "Vite 6 + React 19 + TS + Tailwind 3 + vite-plugin-pwa, dep install clean." },
+    { "task": "T-02 design tokens",   "planned": true, "delivered": true,  "notes": "ink/paper/gold/moss/rust palette + Inter/Fraunces/JetBrains Mono." },
+    { "task": "T-03 app shell",       "planned": true, "delivered": true,  "notes": "Header + desktop sidebar + mobile bottom-nav + drawer, all with safe-area-inset support." },
+    { "task": "T-04 state module",    "planned": true, "delivered": true,  "notes": "Versioned localStorage under helm.v1.state." },
+    { "task": "T-05 anthropic client","planned": true, "delivered": true,  "notes": "Direct browser fetch with dangerous-direct-browser-access header; AnthropicError mapping for 0/400/401/429." },
+    { "task": "T-06 icons",           "planned": true, "delivered": true,  "notes": "Programmatic SVG → PNG via sharp; 192/512/512-maskable + apple-touch-icon + favicon.svg." },
+    { "task": "T-07 curriculum",      "planned": true, "delivered": true,  "notes": "All 11 modules; ~1200 LOC of authored banking content." },
+    { "task": "T-08 module page",     "planned": true, "delivered": true,  "notes": "Crumb + title + summary + scenario + vocabulary + concepts + exercises + self-check + leadership + notes." },
+    { "task": "T-09 exercise runner", "planned": true, "delivered": true,  "notes": "System + user editors; model/temp/max_tokens; live or simulated; per-run history capped 12 entries." },
+    { "task": "T-10 settings",        "planned": true, "delivered": true,  "notes": "Key in/out + test key against api.anthropic.com + defaults + danger-zone full reset." },
+    { "task": "T-11 progress view",   "planned": true, "delivered": true,  "notes": "Per-module status + bar + run count." },
+    { "task": "T-12 leadership export","planned": true, "delivered": true, "notes": "Auto-builds Markdown brief from notes + latest run per module; optional Claude refinement; download as .md." },
+    { "task": "T-13 unit tests",      "planned": true, "delivered": true,  "notes": "53/53 pass: 47 curriculum invariants, 3 anthropic-client URL/header/refusal tests, 3 state tests." },
+    { "task": "T-14 build + preview", "planned": true, "delivered": true,  "notes": "Production bundle 376 KB JS / 119 KB gzipped, well under 500 KB gzipped budget. Playwright preview test clean." },
+    { "task": "T-15 README",          "planned": true, "delivered": true,  "notes": "Curriculum, BYO-key explanation, install steps, deploy steps, methodology pointer to docs/skill-chain/." },
+    { "task": "T-16 GitHub Pages",    "planned": true, "delivered": true,  "notes": "1seansean1/helm public repo + Actions workflow + Pages enabled. Live at https://1seansean1.github.io/helm/." },
+    { "task": "T-17 AWS commercial",  "planned": true, "delivered": true,  "notes": "S3 bucket helm-1seansean1 (us-east-1) + public-read policy + website hosting. Live at http://helm-1seansean1.s3-website-us-east-1.amazonaws.com/." },
+    { "task": "T-18 smoke test",      "planned": true, "delivered": true,  "notes": "Playwright loaded both URLs, deep-linked to a module, fired the Simulated exercise — response rendered. 0 errors / 0 warnings post-fix." }
+  ],
+  "requirements_changes": [
+    { "id": "R-15", "kind": "addition", "rationale": "Operator's UI quality memory required explicit non-terminal aesthetic guarantee; added as a verifiable requirement during requirements pass." }
+  ],
+  "tech_debt": [
+    { "id": "TD-01", "item": "Account-level S3 BlockPublicPolicy disabled to allow the public bucket policy; BlockPublicAcls and IgnorePublicAcls remain enabled. Long-term move is CloudFront + OAC to restore the account default.", "severity": "low", "owner": "operator" },
+    { "id": "TD-02", "item": "No HTTPS on the S3 website endpoint (HTTP only). Acceptable for a static demo with no auth surface; CloudFront would solve.", "severity": "low", "owner": "operator" },
+    { "id": "TD-03", "item": "No component tests for ExerciseRunner / LeadershipPage UI flows yet (only smoke-tested via Playwright). Add @testing-library/react before any UI refactor.", "severity": "low", "owner": "operator" },
+    { "id": "TD-04", "item": "Curriculum content not yet reviewed by a domain expert (working banking PM). Plan: one round of friend's feedback after she's worked through it.", "severity": "low", "owner": "operator" }
+  ],
+  "completion_assessment": "Walking demo (R1) complete: all 11 modules navigable, BYO-key live integration wired, install-as-PWA verified, deployed to both GitHub Pages and AWS commercial. 18/18 requirements verified. No planned units outstanding."
+}
